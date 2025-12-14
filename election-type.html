@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élections Campus - Sélectionner le Type d'Élection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">Élections Campus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="verify.html">Voter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">Résultats</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Sélectionner le Type d'Élection</h2>
+            <p class="text-muted">Choisissez l'élection à laquelle vous souhaitez participer</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card election-card shadow-sm" onclick="selectElection('presidential')">
+                    <div class="card-body text-center p-4">
+                        <div class="election-icon mb-3">🏛️</div>
+                        <h4 class="card-title">Élection Présidentielle</h4>
+                        <p class="card-text text-muted">Votez pour le prochain président</p>
+                        <span class="badge bg-success">Active</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card election-card shadow-sm disabled-card">
+                    <div class="card-body text-center p-4">
+                        <div class="election-icon mb-3">🏢</div>
+                        <h4 class="card-title">Élection Gouvernorale</h4>
+                        <p class="card-text text-muted">Votez pour le gouverneur de l'État</p>
+                        <span class="badge bg-secondary">Non Disponible</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card election-card shadow-sm disabled-card">
+                    <div class="card-body text-center p-4">
+                        <div class="election-icon mb-3">🏛️</div>
+                        <h4 class="card-title">Élection Législative</h4>
+                        <p class="card-text text-muted">Votez pour les représentants</p>
+                        <span class="badge bg-secondary">Non Disponible</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectElection(type) {
+            if (type === 'presidential') {
+                window.location.href = 'voting.html';
+            } else {
+                alert('Cette élection n\'est pas actuellement disponible.');
+            }
+        }
+    </script>
+</body>
+</html>

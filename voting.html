@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élections Campus - Élection Présidentielle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">Élections Campus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="verify.html">Voter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">Résultats</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary mb-2">VOTE EN DIRECT</span>
+            <h2 class="fw-bold">Élection Présidentielle 2024</h2>
+            <p class="text-muted">Sélectionnez votre candidat préféré</p>
+        </div>
+
+        <div class="row g-4" id="candidatesContainer"></div>
+    </div>
+
+    <div class="modal fade" id="voteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmez Votre Vote</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Vous êtes sur le point de voter pour:</p>
+                    <h4 class="fw-bold text-primary" id="selectedCandidateName"></h4>
+                    <p class="text-muted" id="selectedCandidateParty"></p>
+                    <div class="alert alert-warning">
+                        <strong>Attention:</strong> Cette action ne peut pas être annulée!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmVote()">Confirmer le Vote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="voteReceiptModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">✓ Vote Réussi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="voteReceiptContent">
+                    <div class="text-center mb-4">
+                        <div class="badge bg-success mb-3" style="font-size: 1.2rem; padding: 10px 20px;">
+                            VOTE CONFIRMÉ
+                        </div>
+                        <h4 class="text-success mb-3">Merci d'Avoir Voté!</h4>
+                    </div>
+                    
+                    <div class="receipt-box p-4 bg-light rounded">
+                        <h6 class="fw-bold mb-3 text-center">REÇU DE VOTE</h6>
+                        <hr>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">ID Électeur:</div>
+                            <div class="col-7 fw-bold" id="receiptVoterId"></div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Nom de l'Électeur:</div>
+                            <div class="col-7 fw-bold" id="receiptVoterName"></div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Département:</div>
+                            <div class="col-7" id="receiptVoterDept"></div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Région:</div>
+                            <div class="col-7" id="receiptVoterRegion"></div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">A Voté Pour:</div>
+                            <div class="col-7 fw-bold text-primary" id="receiptCandidateName"></div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Parti:</div>
+                            <div class="col-7" id="receiptCandidateParty"></div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Date et Heure:</div>
+                            <div class="col-7" id="receiptDateTime"></div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">ID de Transaction:</div>
+                            <div class="col-7 fw-bold" id="receiptTransactionId"></div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Ceci est votre reçu de vote officiel.<br>Conservez-le pour vos dossiers.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="printVoteReceipt()">
+                        Imprimer le Reçu
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="goToResults()">
+                        Voir les Résultats
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="voting.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élections Campus - Inscription</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">Élections Campus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="register.html">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="verify.html">Voter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">Résultats</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-center mb-4">Inscription des Électeurs</h2>
+                        <form id="registrationForm">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nom Complet</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Numéro de Téléphone</label>
+                                <input type="tel" class="form-control" id="phoneNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="idCardNumber" class="form-label">Numéro de Carte d'Identité</label>
+                                <input type="text" class="form-control" id="idCardNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Département</label>
+                                <select class="form-select" id="department" required>
+                                    <option value="">Sélectionner le Département</option>
+                                    <option value="Administration">Administration</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Informatique">Informatique</option>
+                                    <option value="Ressources Humaines">Ressources Humaines</option>
+                                    <option value="Opérations">Opérations</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="region" class="form-label">Région</label>
+                                <select class="form-select" id="region" required>
+                                    <option value="">Sélectionner la Région</option>
+                                    <option value="Nord">Nord</option>
+                                    <option value="Sud">Sud</option>
+                                    <option value="Est">Est</option>
+                                    <option value="Ouest">Ouest</option>
+                                    <option value="Centre">Centre</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2">S'inscrire</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="receiptModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Inscription Réussie!</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="receiptContent" class="receipt-content">
+                        <div class="text-center mb-4">
+                            <h4 class="fw-bold">REÇU D'INSCRIPTION ÉLECTORALE</h4>
+                            <p class="text-muted">Conservez cet identifiant pour voter</p>
+                        </div>
+                        <div class="alert alert-primary text-center">
+                            <h5 class="mb-2">Votre Identifiant de Vote</h5>
+                            <h3 class="fw-bold" id="votingId"></h3>
+                        </div>
+                        <hr>
+                        <div class="receipt-details">
+                            <p><strong>Nom Complet:</strong> <span id="receiptName"></span></p>
+                            <p><strong>Numéro de Téléphone:</strong> <span id="receiptPhone"></span></p>
+                            <p><strong>Numéro de Carte d'Identité:</strong> <span id="receiptIdCard"></span></p>
+                            <p><strong>Département:</strong> <span id="receiptDepartment"></span></p>
+                            <p><strong>Région:</strong> <span id="receiptRegion"></span></p>
+                            <p><strong>Date d'Inscription:</strong> <span id="receiptDate"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="copyVotingId()">Copier l'ID</button>
+                    <button type="button" class="btn btn-primary" onclick="printReceipt()">Imprimer le Reçu</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>
