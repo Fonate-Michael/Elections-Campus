@@ -4,6 +4,42 @@ const submitButtonText = document.getElementById('submitButtonText');
 const electionTypeSelect = document.getElementById('electionType');
 const eligibilityConditionsDiv = document.getElementById('eligibilityConditions');
 
+function compressImage(file, callback) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            const maxSize = 400;
+            if (width > height) {
+                if (width > maxSize) {
+                    height *= maxSize / width;
+                    width = maxSize;
+                }
+            } else {
+                if (height > maxSize) {
+                    width *= maxSize / height;
+                    height = maxSize;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedData = canvas.toDataURL('image/jpeg', 0.7);
+            callback(compressedData);
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
 const eligibilityConditions = {
     legislative: [
         "Être citoyen camerounais",
@@ -63,6 +99,19 @@ document.getElementById('registrationForm').addEventListener('submit', function 
     const registrationType = document.querySelector('input[name="registrationType"]:checked').value;
 
     if (registrationType === 'candidate') {
+        const electionType = document.getElementById('electionType').value;
+        const party = document.getElementById('candidateParty').value;
+
+        if (!party) {
+            alert('Veuillez sélectionner un parti politique');
+            return;
+        }
+
+        if (!electionType) {
+            alert('Veuillez sélectionner un type d\'élection');
+            return;
+        }
+
         if (!document.getElementById('confirmEligibility').checked) {
             alert('Vous devez confirmer que vous remplissez toutes les conditions d\'éligibilité');
             return;
@@ -101,12 +150,10 @@ document.getElementById('registrationForm').addEventListener('submit', function 
             alert('La photo d\'identité est trop volumineuse. Taille maximale: 2MB');
             return;
         }
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            photoData = event.target.result;
+        compressImage(file, function (compressed) {
+            photoData = compressed;
             checkAndSave();
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
     if (registrationType === 'candidate' && candidatePhotoInput.files && candidatePhotoInput.files[0]) {
@@ -116,12 +163,10 @@ document.getElementById('registrationForm').addEventListener('submit', function 
             alert('La photo de campagne est trop volumineuse. Taille maximale: 2MB');
             return;
         }
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            candidatePhotoData = event.target.result;
+        compressImage(file, function (compressed) {
+            candidatePhotoData = compressed;
             checkAndSave();
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
     if (photosToLoad === 0) {
@@ -168,11 +213,11 @@ function saveVoterData(photoData) {
 
     const modalElement = document.getElementById('receiptModal');
     const modal = new bootstrap.Modal(modalElement);
-    
+
     modalElement.addEventListener('hidden.bs.modal', function () {
         document.getElementById('registrationForm').reset();
     }, { once: true });
-    
+
     modal.show();
 }
 
@@ -226,9 +271,18 @@ function saveCandidateData(photoData, candidatePhotoData) {
         ...formData
     });
 
-    localStorage.setItem('candidates', JSON.stringify(candidates));
-
-    alert(`Inscription réussie!\n\nVotre ID de candidat: ${candidateId}\nNom: ${formData.fullName}\nParti: ${formData.party}\nType d'élection: ${formData.electionType}\n\nVous apparaîtrez maintenant dans les bulletins de vote.`);
+    try {
+        localStorage.setItem('candidates', JSON.stringify(candidates));
+        alert(`Inscription réussie!\n\nVotre ID de candidat: ${candidateId}\nNom: ${formData.fullName}\nParti: ${formData.party}\nType d'élection: ${formData.electionType}\n\nVous apparaîtrez maintenant dans les bulletins de vote.`);
+    } catch (e) {
+        if (e.name === 'QuotaExceededError') {
+            alert('Erreur: Espace de stockage insuffisant. Trop de candidats enregistrés avec des photos. Veuillez contacter l\'administrateur.');
+            candidates.pop();
+        } else {
+            alert('Erreur lors de l\'enregistrement: ' + e.message);
+        }
+        return;
+    }
 
     document.getElementById('registrationForm').reset();
     document.querySelector('input[name="registrationType"][value="voter"]').checked = true;

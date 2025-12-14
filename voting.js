@@ -72,19 +72,21 @@ function displayCandidates() {
     container.innerHTML = candidatesToShow.map(candidate => `
         <div class="col-md-6 col-lg-4">
             <div class="card candidate-card h-100 shadow-sm border-2">
-                ${candidate.photo ? `<img src="${candidate.photo}" class="card-img-top" alt="${candidate.name}" style="height: 200px; object-fit: cover;">` : ''}
                 <div class="card-body p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="candidate-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 24px; font-weight: bold;">
-                            ${candidate.id}
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="card-title mb-1">${candidate.name}</h5>
-                            <small class="text-primary fw-bold">${candidate.votes} votes</small>
-                        </div>
+                    <div class="text-center mb-3">
+                        ${candidate.photo 
+                            ? `<img src="${candidate.photo}" alt="${candidate.name}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #0d6efd;">` 
+                            : `<div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto" style="width: 120px; height: 120px; border: 3px solid #6c757d;">
+                                <span style="font-size: 48px; color: white;">📷</span>
+                               </div>`
+                        }
                     </div>
-                    <p class="text-muted mb-2" style="font-size: 0.9rem;"><strong>${candidate.party}</strong></p>
-                    <p class="text-muted mb-3" style="font-size: 0.85rem;">${candidate.department} - ${candidate.region}</p>
+                    <div class="text-center mb-3">
+                        <h5 class="card-title mb-1">${candidate.name}</h5>
+                        <small class="text-primary fw-bold">${candidate.votes} votes</small>
+                    </div>
+                    <p class="text-muted mb-2 text-center" style="font-size: 0.9rem;"><strong>${candidate.party}</strong></p>
+                    <p class="text-muted mb-3 text-center" style="font-size: 0.85rem;">${candidate.department} - ${candidate.region}</p>
                     <button class="btn btn-primary w-100" onclick="openVoteModal(${candidate.id}, '${candidate.name.replace(/'/g, "\\'")}', '${candidate.party.replace(/'/g, "\\'")}')">
                         Voter
                     </button>
