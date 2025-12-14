@@ -2,58 +2,50 @@ function initializeCandidates() {
     const defaultCandidates = [
         {
             id: 1,
-            name: "Jean Anderson",
-            party: "Parti Démocratique",
-            image: "https://i.pravatar.cc/150?img=12",
+            name: "Paul Biya",
+            party: "RDPC (Rassemblement Démocratique du Peuple Camerounais)",
             votes: 0
         },
         {
             id: 2,
-            name: "Sarah Mitchell",
-            party: "Parti Républicain",
-            image: "https://i.pravatar.cc/150?img=45",
+            name: "Maurice Kamto",
+            party: "MRC (Mouvement pour la Renaissance du Cameroun)",
             votes: 0
         },
         {
             id: 3,
-            name: "Michel Chen",
-            party: "Parti Indépendant",
-            image: "https://i.pravatar.cc/150?img=33",
+            name: "Cabral Libii",
+            party: "PURS (Parti Univers et Raison Sociale)",
             votes: 0
         },
         {
             id: 4,
-            name: "Émilie Rodriguez",
-            party: "Parti Vert",
-            image: "https://i.pravatar.cc/150?img=47",
+            name: "Joshua Osih",
+            party: "SDF (Social Democratic Front)",
             votes: 0
         },
         {
             id: 5,
-            name: "David Thompson",
-            party: "Parti Libéral",
-            image: "https://i.pravatar.cc/150?img=15",
+            name: "Akere Muna",
+            party: "Front Populaire pour le Développement",
             votes: 0
         },
         {
             id: 6,
-            name: "Jennifer Williams",
-            party: "Parti Progressiste",
-            image: "https://i.pravatar.cc/150?img=20",
+            name: "Garga Haman Adji",
+            party: "Alliance pour la Démocratie et le Développement",
             votes: 0
         },
         {
             id: 7,
-            name: "Robert Martinez",
-            party: "Parti Conservateur",
-            image: "https://i.pravatar.cc/150?img=8",
+            name: "Serge Espoir Matomba",
+            party: "PCRN (Parti Camerounais pour la Réconciliation Nationale)",
             votes: 0
         },
         {
             id: 8,
-            name: "Lisa Johnson",
-            party: "Parti de l'Unité",
-            image: "https://i.pravatar.cc/150?img=9",
+            name: "Edith Kah Walla",
+            party: "CPP (Cameroon People's Party)",
             votes: 0
         }
     ];

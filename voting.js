@@ -7,58 +7,50 @@ if (!currentVoterId) {
 const candidates = [
     {
         id: 1,
-        name: "Jean Anderson",
-        party: "Parti Démocratique",
-        image: "https://i.pravatar.cc/150?img=12",
+        name: "Paul Biya",
+        party: "RDPC (Rassemblement Démocratique du Peuple Camerounais)",
         votes: 0
     },
     {
         id: 2,
-        name: "Sarah Mitchell",
-        party: "Parti Républicain",
-        image: "https://i.pravatar.cc/150?img=45",
+        name: "Maurice Kamto",
+        party: "MRC (Mouvement pour la Renaissance du Cameroun)",
         votes: 0
     },
     {
         id: 3,
-        name: "Michel Chen",
-        party: "Parti Indépendant",
-        image: "https://i.pravatar.cc/150?img=33",
+        name: "Cabral Libii",
+        party: "PURS (Parti Univers et Raison Sociale)",
         votes: 0
     },
     {
         id: 4,
-        name: "Émilie Rodriguez",
-        party: "Parti Vert",
-        image: "https://i.pravatar.cc/150?img=47",
+        name: "Joshua Osih",
+        party: "SDF (Social Democratic Front)",
         votes: 0
     },
     {
         id: 5,
-        name: "David Thompson",
-        party: "Parti Libéral",
-        image: "https://i.pravatar.cc/150?img=15",
+        name: "Akere Muna",
+        party: "Front Populaire pour le Développement",
         votes: 0
     },
     {
         id: 6,
-        name: "Jennifer Williams",
-        party: "Parti Progressiste",
-        image: "https://i.pravatar.cc/150?img=20",
+        name: "Garga Haman Adji",
+        party: "Alliance pour la Démocratie et le Développement",
         votes: 0
     },
     {
         id: 7,
-        name: "Robert Martinez",
-        party: "Parti Conservateur",
-        image: "https://i.pravatar.cc/150?img=8",
+        name: "Serge Espoir Matomba",
+        party: "PCRN (Parti Camerounais pour la Réconciliation Nationale)",
         votes: 0
     },
     {
         id: 8,
-        name: "Lisa Johnson",
-        party: "Parti de l'Unité",
-        image: "https://i.pravatar.cc/150?img=9",
+        name: "Edith Kah Walla",
+        party: "CPP (Cameroon People's Party)",
         votes: 0
     }
 ];
@@ -116,15 +108,19 @@ function displayCandidates() {
     }
 
     container.innerHTML = candidatesToShow.map(candidate => `
-        <div class="col-md-6 col-lg-3">
-            <div class="card candidate-card h-100 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <img src="${candidate.image}" alt="${candidate.name}" class="candidate-img mb-3">
-                    <h5 class="card-title">${candidate.name}</h5>
-                    <p class="text-muted mb-3">${candidate.party}</p>
-                    <div class="mb-2">
-                        <small class="text-primary fw-bold">${candidate.votes} votes</small>
+        <div class="col-md-6 col-lg-4">
+            <div class="card candidate-card h-100 shadow-sm border-2">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="candidate-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 24px; font-weight: bold;">
+                            ${candidate.id}
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="card-title mb-1">${candidate.name}</h5>
+                            <small class="text-primary fw-bold">${candidate.votes} votes</small>
+                        </div>
                     </div>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">${candidate.party}</p>
                     <button class="btn btn-primary w-100" onclick="openVoteModal(${candidate.id}, '${candidate.name}', '${candidate.party}')">
                         Voter
                     </button>
