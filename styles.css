@@ -1,10 +1,9 @@
-/* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
 }
 
-/* Hero Section */
+
 .hero-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -28,7 +27,7 @@ body {
     color: #764ba2;
     border-color: #f8f9fa;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .hero-section .btn-outline-primary {
@@ -44,21 +43,20 @@ body {
     color: #667eea;
     border-color: white;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Feature Icons */
 .feature-icon {
     font-size: 3rem;
 }
 
-/* Verify Icon */
+
 .verify-icon {
     font-size: 4rem;
     margin-bottom: 1rem;
 }
 
-/* Election Cards */
+
 .election-card {
     cursor: pointer;
     transition: all 0.3s;
@@ -68,7 +66,7 @@ body {
 .election-card:hover:not(.disabled-card) {
     transform: translateY(-5px);
     border-color: #0d6efd;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .disabled-card {
@@ -80,7 +78,7 @@ body {
     font-size: 3rem;
 }
 
-/* Receipt Styles */
+
 .receipt-content {
     padding: 20px;
 }
@@ -99,7 +97,7 @@ body {
 
 .candidate-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .candidate-number {
@@ -113,11 +111,11 @@ body {
 
 .candidate-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     border-left-color: #0a58ca;
 }
 
-/* Results Progress Bars */
+
 .result-bar {
     margin-bottom: 20px;
 }
@@ -128,14 +126,17 @@ body {
     margin-bottom: 8px;
 }
 
-/* Print Styles */
+
 @media print {
     body * {
         visibility: hidden;
     }
-    #receiptContent, #receiptContent * {
+
+    #receiptContent,
+    #receiptContent * {
         visibility: visible;
     }
+
     #receiptContent {
         position: absolute;
         left: 0;

@@ -1,71 +1,21 @@
 const currentVoterId = sessionStorage.getItem('currentVoterId');
+const selectedElectionType = sessionStorage.getItem('selectedElectionType');
+
 if (!currentVoterId) {
     alert('Veuillez d\'abord vérifier votre identifiant de vote!');
     window.location.href = 'verify.html';
 }
 
-const candidates = [
-    {
-        id: 1,
-        name: "Paul Biya",
-        party: "RDPC (Rassemblement Démocratique du Peuple Camerounais)",
-        votes: 0
-    },
-    {
-        id: 2,
-        name: "Maurice Kamto",
-        party: "MRC (Mouvement pour la Renaissance du Cameroun)",
-        votes: 0
-    },
-    {
-        id: 3,
-        name: "Cabral Libii",
-        party: "PURS (Parti Univers et Raison Sociale)",
-        votes: 0
-    },
-    {
-        id: 4,
-        name: "Joshua Osih",
-        party: "SDF (Social Democratic Front)",
-        votes: 0
-    },
-    {
-        id: 5,
-        name: "Akere Muna",
-        party: "Front Populaire pour le Développement",
-        votes: 0
-    },
-    {
-        id: 6,
-        name: "Garga Haman Adji",
-        party: "Alliance pour la Démocratie et le Développement",
-        votes: 0
-    },
-    {
-        id: 7,
-        name: "Serge Espoir Matomba",
-        party: "PCRN (Parti Camerounais pour la Réconciliation Nationale)",
-        votes: 0
-    },
-    {
-        id: 8,
-        name: "Edith Kah Walla",
-        party: "CPP (Cameroon People's Party)",
-        votes: 0
-    }
-];
+if (!selectedElectionType) {
+    alert('Veuillez sélectionner un type d\'élection!');
+    window.location.href = 'election-type.html';
+}
 
 function initializeCandidates() {
     const stored = localStorage.getItem('candidates');
     if (!stored) {
-        localStorage.setItem('candidates', JSON.stringify(candidates));
-        console.log('Candidats initialisés:', candidates.length);
-    } else {
-        const parsed = JSON.parse(stored);
-        if (parsed.length === 0) {
-            localStorage.setItem('candidates', JSON.stringify(candidates));
-            console.log('Candidats réinitialisés:', candidates.length);
-        }
+        localStorage.setItem('candidates', JSON.stringify([]));
+        console.log('Candidats initialisés: liste vide');
     }
 }
 
@@ -98,18 +48,31 @@ function displayCandidates() {
         return;
     }
 
-    const candidatesToShow = JSON.parse(localStorage.getItem('candidates')) || candidates;
+    const allCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
+    const selectedElectionType = sessionStorage.getItem('selectedElectionType');
+    
+    const candidatesToShow = allCandidates.filter(c => c.electionType === selectedElectionType);
 
-    console.log('Affichage des candidats:', candidatesToShow);
+    console.log('Type d\'élection:', selectedElectionType);
+    console.log('Candidats filtrés:', candidatesToShow);
+
+    const electionTitles = {
+        presidential: 'Élection Présidentielle',
+        legislative: 'Élection Législative',
+        municipal: 'Élections Municipales'
+    };
+
+    document.querySelector('.text-center h2').textContent = electionTitles[selectedElectionType] || 'Élection';
 
     if (!candidatesToShow || candidatesToShow.length === 0) {
-        container.innerHTML = '<div class="col-12 text-center"><p class="text-danger">Aucun candidat disponible</p></div>';
+        container.innerHTML = '<div class="col-12 text-center"><div class="alert alert-warning"><h5>Aucun candidat enregistré</h5><p>Aucun candidat ne s\'est inscrit pour ce type d\'élection.</p></div></div>';
         return;
     }
 
     container.innerHTML = candidatesToShow.map(candidate => `
         <div class="col-md-6 col-lg-4">
             <div class="card candidate-card h-100 shadow-sm border-2">
+                ${candidate.photo ? `<img src="${candidate.photo}" class="card-img-top" alt="${candidate.name}" style="height: 200px; object-fit: cover;">` : ''}
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-3">
                         <div class="candidate-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 24px; font-weight: bold;">
@@ -120,8 +83,9 @@ function displayCandidates() {
                             <small class="text-primary fw-bold">${candidate.votes} votes</small>
                         </div>
                     </div>
-                    <p class="text-muted mb-3" style="font-size: 0.9rem;">${candidate.party}</p>
-                    <button class="btn btn-primary w-100" onclick="openVoteModal(${candidate.id}, '${candidate.name}', '${candidate.party}')">
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;"><strong>${candidate.party}</strong></p>
+                    <p class="text-muted mb-3" style="font-size: 0.85rem;">${candidate.department} - ${candidate.region}</p>
+                    <button class="btn btn-primary w-100" onclick="openVoteModal(${candidate.id}, '${candidate.name.replace(/'/g, "\\'")}', '${candidate.party.replace(/'/g, "\\'")}')">
                         Voter
                     </button>
                 </div>

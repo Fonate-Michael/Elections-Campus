@@ -38,49 +38,71 @@
             <h2 class="fw-bold">Sélectionner le Type d'Élection</h2>
             <p class="text-muted">Choisissez l'élection à laquelle vous souhaitez participer</p>
         </div>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <div class="card election-card shadow-sm" onclick="selectElection('presidential')">
-                    <div class="card-body text-center p-4">
-                        <div class="election-icon mb-3">🏛️</div>
-                        <h4 class="card-title">Élection Présidentielle</h4>
-                        <p class="card-text text-muted">Votez pour le prochain président</p>
-                        <span class="badge bg-success">Active</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card election-card shadow-sm disabled-card">
-                    <div class="card-body text-center p-4">
-                        <div class="election-icon mb-3">🏢</div>
-                        <h4 class="card-title">Élection Gouvernorale</h4>
-                        <p class="card-text text-muted">Votez pour le gouverneur de l'État</p>
-                        <span class="badge bg-secondary">Non Disponible</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card election-card shadow-sm disabled-card">
-                    <div class="card-body text-center p-4">
-                        <div class="election-icon mb-3">🏛️</div>
-                        <h4 class="card-title">Élection Législative</h4>
-                        <p class="card-text text-muted">Votez pour les représentants</p>
-                        <span class="badge bg-secondary">Non Disponible</span>
-                    </div>
-                </div>
-            </div>
+        <div class="row g-4 justify-content-center" id="electionTypesContainer">
+            <!-- Election types will be loaded dynamically -->
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function selectElection(type) {
-            if (type === 'presidential') {
-                window.location.href = 'voting.html';
-            } else {
-                alert('Cette élection n\'est pas actuellement disponible.');
+        const electionTypes = [
+            {
+                type: 'presidential',
+                icon: '🏛️',
+                title: 'Élection Présidentielle',
+                description: 'Votez pour le prochain président'
+            },
+            {
+                type: 'legislative',
+                icon: '📜',
+                title: 'Élection Législative',
+                description: 'Votez pour les représentants'
+            },
+            {
+                type: 'municipal',
+                icon: '🏢',
+                title: 'Élections Municipales',
+                description: 'Votez pour les conseillers municipaux'
             }
+        ];
+
+        function loadElectionTypes() {
+            const candidates = JSON.parse(localStorage.getItem('candidates') || '[]');
+            const container = document.getElementById('electionTypesContainer');
+            
+            const html = electionTypes.map(election => {
+                const candidatesForType = candidates.filter(c => c.electionType === election.type);
+                const isActive = candidatesForType.length > 0;
+                const cardClass = isActive ? 'election-card shadow-sm' : 'election-card shadow-sm disabled-card';
+                const badge = isActive 
+                    ? `<span class="badge bg-success">Active (${candidatesForType.length} candidat${candidatesForType.length > 1 ? 's' : ''})</span>`
+                    : '<span class="badge bg-secondary">Non Disponible</span>';
+                const onclick = isActive ? `onclick="selectElection('${election.type}')"` : '';
+                const cursor = isActive ? 'cursor: pointer;' : 'cursor: not-allowed; opacity: 0.6;';
+                
+                return `
+                    <div class="col-md-4">
+                        <div class="card ${cardClass}" ${onclick} style="${cursor}">
+                            <div class="card-body text-center p-4">
+                                <div class="election-icon mb-3">${election.icon}</div>
+                                <h4 class="card-title">${election.title}</h4>
+                                <p class="card-text text-muted">${election.description}</p>
+                                ${badge}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
         }
+
+        function selectElection(type) {
+            sessionStorage.setItem('selectedElectionType', type);
+            window.location.href = 'voting.html';
+        }
+
+        loadElectionTypes();
     </script>
 </body>
 </html>

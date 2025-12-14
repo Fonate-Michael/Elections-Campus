@@ -39,6 +39,18 @@
                 <div class="card shadow">
                     <div class="card-body p-5">
                         <h2 class="card-title text-center mb-4">Inscription des Électeurs</h2>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Type d'Inscription</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="registrationType" id="voterType" value="voter" checked>
+                                <label class="btn btn-outline-primary" for="voterType">Électeur</label>
+                                
+                                <input type="radio" class="btn-check" name="registrationType" id="candidateType" value="candidate">
+                                <label class="btn btn-outline-primary" for="candidateType">Candidat</label>
+                            </div>
+                        </div>
+
                         <form id="registrationForm">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Nom Complet</label>
@@ -121,7 +133,60 @@
                                 <input type="file" class="form-control" id="identityPhoto" accept="image/*">
                                 <small class="text-muted">Format accepté: JPG, PNG (Max 2MB)</small>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 py-2">S'inscrire</button>
+
+                            <div id="candidateFields" style="display: none;">
+                                <hr class="my-4">
+                                <h5 class="mb-3">Informations du Candidat</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="candidateParty" class="form-label">Parti Politique</label>
+                                    <select class="form-select" id="candidateParty">
+                                        <option value="">Sélectionner le Parti</option>
+                                        <option value="RDPC (Rassemblement Démocratique du Peuple Camerounais)">RDPC</option>
+                                        <option value="MRC (Mouvement pour la Renaissance du Cameroun)">MRC</option>
+                                        <option value="PURS (Parti Univers et Raison Sociale)">PURS</option>
+                                        <option value="SDF (Social Democratic Front)">SDF</option>
+                                        <option value="Front Populaire pour le Développement">Front Populaire pour le Développement</option>
+                                        <option value="Alliance pour la Démocratie et le Développement">Alliance pour la Démocratie et le Développement</option>
+                                        <option value="PCRN (Parti Camerounais pour la Réconciliation Nationale)">PCRN</option>
+                                        <option value="CPP (Cameroon People's Party)">CPP</option>
+                                        <option value="UDC (Union Démocratique du Cameroun)">UDC</option>
+                                        <option value="Indépendant">Indépendant</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="electionType" class="form-label">Type d'Élection</label>
+                                    <select class="form-select" id="electionType">
+                                        <option value="">Sélectionner le Type</option>
+                                        <option value="legislative">Législative</option>
+                                        <option value="presidential">Présidentielle</option>
+                                        <option value="municipal">Municipale</option>
+                                    </select>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    <h6 class="fw-bold">Conditions d'Éligibilité</h6>
+                                    <div id="eligibilityConditions"></div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="confirmEligibility">
+                                    <label class="form-check-label" for="confirmEligibility">
+                                        Je confirme remplir toutes les conditions d'éligibilité ci-dessus
+                                    </label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="candidatePhoto" class="form-label">Photo de Campagne (Obligatoire)</label>
+                                    <input type="file" class="form-control" id="candidatePhoto" accept="image/*">
+                                    <small class="text-muted">Format accepté: JPG, PNG (Max 2MB)</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 mt-3">
+                                <span id="submitButtonText">S'Inscrire comme Électeur</span>
+                            </button>
                         </form>
                     </div>
                 </div>
