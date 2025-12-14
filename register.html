@@ -45,6 +45,14 @@
                                 <input type="text" class="form-control" id="fullName" required>
                             </div>
                             <div class="mb-3">
+                                <label for="birthDate" class="form-label">Date de Naissance</label>
+                                <input type="date" class="form-control" id="birthDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="placeOfResidence" class="form-label">Lieu de Résidence</label>
+                                <input type="text" class="form-control" id="placeOfResidence" placeholder="Ville, Quartier" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="phoneNumber" class="form-label">Numéro de Téléphone</label>
                                 <input type="tel" class="form-control" id="phoneNumber" required>
                             </div>
@@ -56,23 +64,36 @@
                                 <label for="department" class="form-label">Département</label>
                                 <select class="form-select" id="department" required>
                                     <option value="">Sélectionner le Département</option>
-                                    <option value="Administration">Administration</option>
-                                    <option value="Finance">Finance</option>
                                     <option value="Informatique">Informatique</option>
-                                    <option value="Ressources Humaines">Ressources Humaines</option>
-                                    <option value="Opérations">Opérations</option>
+                                    <option value="Génie Civil">Génie Civil</option>
+                                    <option value="Génie Électrique">Génie Électrique</option>
+                                    <option value="Génie Mécanique">Génie Mécanique</option>
+                                    <option value="Sciences Économiques">Sciences Économiques</option>
+                                    <option value="Droit">Droit</option>
+                                    <option value="Médecine">Médecine</option>
+                                    <option value="Lettres et Sciences Humaines">Lettres et Sciences Humaines</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="region" class="form-label">Région</label>
+                                <label for="region" class="form-label">Région d'Origine</label>
                                 <select class="form-select" id="region" required>
                                     <option value="">Sélectionner la Région</option>
-                                    <option value="Nord">Nord</option>
-                                    <option value="Sud">Sud</option>
-                                    <option value="Est">Est</option>
-                                    <option value="Ouest">Ouest</option>
+                                    <option value="Adamaoua">Adamaoua</option>
                                     <option value="Centre">Centre</option>
+                                    <option value="Est">Est</option>
+                                    <option value="Extrême-Nord">Extrême-Nord</option>
+                                    <option value="Littoral">Littoral</option>
+                                    <option value="Nord">Nord</option>
+                                    <option value="Nord-Ouest">Nord-Ouest</option>
+                                    <option value="Ouest">Ouest</option>
+                                    <option value="Sud">Sud</option>
+                                    <option value="Sud-Ouest">Sud-Ouest</option>
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="identityPhoto" class="form-label">Photo d'Identité (Optionnel)</label>
+                                <input type="file" class="form-control" id="identityPhoto" accept="image/*">
+                                <small class="text-muted">Format accepté: JPG, PNG (Max 2MB)</small>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-2">S'inscrire</button>
                         </form>
@@ -101,10 +122,12 @@
                         <hr>
                         <div class="receipt-details">
                             <p><strong>Nom Complet:</strong> <span id="receiptName"></span></p>
+                            <p><strong>Date de Naissance:</strong> <span id="receiptBirthDate"></span></p>
+                            <p><strong>Lieu de Résidence:</strong> <span id="receiptResidence"></span></p>
                             <p><strong>Numéro de Téléphone:</strong> <span id="receiptPhone"></span></p>
                             <p><strong>Numéro de Carte d'Identité:</strong> <span id="receiptIdCard"></span></p>
                             <p><strong>Département:</strong> <span id="receiptDepartment"></span></p>
-                            <p><strong>Région:</strong> <span id="receiptRegion"></span></p>
+                            <p><strong>Région d'Origine:</strong> <span id="receiptRegion"></span></p>
                             <p><strong>Date d'Inscription:</strong> <span id="receiptDate"></span></p>
                         </div>
                     </div>
