@@ -105,9 +105,9 @@ function displayCandidates() {
         console.error('Conteneur de candidats introuvable!');
         return;
     }
-    
+
     const candidatesToShow = JSON.parse(localStorage.getItem('candidates')) || candidates;
-    
+
     console.log('Affichage des candidats:', candidatesToShow);
 
     if (!candidatesToShow || candidatesToShow.length === 0) {
@@ -155,10 +155,10 @@ function confirmVote() {
     voter.hasVoted = true;
     voter.votedFor = candidate.name;
     voter.votedAt = new Date().toLocaleString('fr-FR');
-    
+
     const transactionId = 'TXN-' + Date.now().toString().slice(-10);
     voter.transactionId = transactionId;
-    
+
     localStorage.setItem('voters', JSON.stringify(voters));
 
     const voteModal = bootstrap.Modal.getInstance(document.getElementById('voteModal'));
@@ -186,9 +186,9 @@ function printVoteReceipt() {
     const voter = voters.find(v => v.votingId === currentVoterId);
     const candidates = JSON.parse(localStorage.getItem('candidates'));
     const candidate = candidates.find(c => c.name === voter.votedFor);
-    
+
     const printWindow = window.open('', '_blank');
-    
+
     printWindow.document.write(`<!DOCTYPE html>
 <html>
 <head>
@@ -391,9 +391,9 @@ function printVoteReceipt() {
     </div>
 </body>
 </html>`);
-    
+
     printWindow.document.close();
-    
+
     setTimeout(() => {
         printWindow.print();
     }, 300);
